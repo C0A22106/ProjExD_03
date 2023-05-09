@@ -172,6 +172,8 @@ def main():
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     explosions = []
     beam = None
+    score = 0   # 爆弾を破壊した数
+    fonto = pg.font.Font(None, 80)
 
     tmr = 0
     while True:
@@ -203,11 +205,14 @@ def main():
                     explosions.append(Explosion(bombs[i]))
                     del bombs[i]
                     bird.change_img(6, screen)
+                    score += 1
                     break
 
         for explosion in explosions:
             explosion.update(screen)
-
+        
+        txt = fonto.render(f"{score}point", True, (255, 255, 255))
+        screen.blit(txt, [1300, 800])
         pg.display.update()
         clock.tick(1000)
 
